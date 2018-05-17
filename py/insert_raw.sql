@@ -1,0 +1,23 @@
+INSERT INTO `gis`.`measuring_point`
+(
+`mjd`,
+`g`,
+`corr_tide`,
+`g_corr`,
+`independ`,
+`corr_tilt`,
+`corr_press`,
+`corr_polar`,
+`event_id`)
+VALUES
+(
+%s,
+%s,
+%s,
+%s,
+%s,
+%s,
+%s,
+%s,
+%s
+);
