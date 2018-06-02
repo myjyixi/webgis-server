@@ -5,8 +5,9 @@ module.exports = function(req, res, next) {
     user_id: '',
     user_name: ''
   }
-  let userId, index = 0
+  let userId
   let _query = req.query
+  let index = 0
 
   if (_query.user_id) {
     userId = _query.user_id
@@ -18,10 +19,10 @@ module.exports = function(req, res, next) {
       }
     })
     if (!index) {
-      res.sendStatus(401)
+      res.send(401, global.unauthError)
     }
   } else {
-    res.sendStatus(401)
+    res.send(401, global.unauthError)
   }
   mysql.select([], `SELECT * FROM users WHERE user_id = ${userId}`).then(item => {
     data.user_id = item[0].user_id

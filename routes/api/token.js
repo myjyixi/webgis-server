@@ -22,7 +22,7 @@ module.exports = function(req, res, next) {
     })
     if (!index) {
       console.log('           --token-fail.index', global.index++)
-      res.sendStatus(401)
+      res.send(401, global.unauthError)
     }
   }
 }
