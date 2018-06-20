@@ -1,7 +1,6 @@
 var express = require('express')
 var router = express.Router()
 var multer = require('multer')
-var exec = require('child_process').exec
 // 上传文件配置
 var storage = multer.diskStorage({
   // 路径
@@ -14,20 +13,23 @@ var storage = multer.diskStorage({
   }
 })
 var upload = multer({ storage: storage })
-// 设置全局变量
-var globalCont = require('../misc/global.constant')()
 
+// 设置全局变量
+require('../misc/global.constant')()
+
+// 身份验证
 router.all(/^\/(?!login)/, require('./api/token'))
-// router.get(/^\/(?!login)/, require('./api/token'))
-// router.post(/^\/(?!login)/, require('./api/token'))
 
 /* GET api listing. */
 router.get('/account', require('./api/account'))
 router.get('/measure_event', require('./api/measureEvent'))
+router.get('/del_event', require('./api/delEvent'))
 router.get('/event_detail', require('./api/eventDetail'))
+router.get('/event_detail_all', require('./api/eventDetailAll'))
+router.get('/download', require('./api/csvDownload'))
 
 /* POST api listing. */
 router.post('/login', require('./api/login'))
-router.post('/upload', upload.any('file'), require('./api/upload'))
+router.post('/upload', upload.single('file'), require('./api/upload'))
 
 module.exports = router
