@@ -62,7 +62,7 @@ def main(args):
 
     db=MySQLdb.connect(host=args['db'],user=args['db_user'],passwd=args['db_passwd'],db="gis")
     c=db.cursor()
-    print('---connect-success')
+    # print('---connect-success')
     
     
     h5file = File(filename)
@@ -197,7 +197,7 @@ def main(args):
     
     #print(' import tide model')
     # ETERNA
-    tide2=np.genfromtxt('AII3_001 Hangzhou 20161101.prd',
+    tide2=np.genfromtxt('./py/AII3_001 Hangzhou 20161101.prd',
                         skip_header=56,skip_footer=2)
     t=(t1+t2)/2
     t0=np.datetime64('2016-11-01T00:00')
@@ -256,7 +256,7 @@ def main(args):
     # output['independ'] = DeltaCorr
     # output['corrTilt'] = corrTilt
 
-    with open('insert_raw.sql', 'r') as sqlfile:
+    with open('./py/insert_raw.sql', 'r') as sqlfile:
         sql=sqlfile.read()
         rows = 0
         lines = len(mjd)
@@ -287,9 +287,9 @@ def main(args):
 
     time_measure = np.datetime64('1904-01-01T00:00')+np.timedelta64(int(t_measure), 's')
 
-    time_str = np.datetime_as_string([time_measure],unit='s')
+    # time_str = np.datetime_as_string([time_measure],unit='s')
 
-    print('{{\"\nStatus\":{},\n \"g\":{:.2f}, \n\"measuremnet_time\":\"{}\"\n }}\n'.format(1, np.mean(g_corr), time_str))
+    print('{{\"Status\":{},\"g\":{:.2f}, \"measure_time\":\"{}\"}}'.format(1, np.mean(g_corr), time_measure), end='')
     return
 
 
