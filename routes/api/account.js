@@ -19,10 +19,10 @@ module.exports = function(req, res, next) {
       }
     })
     if (!index) {
-      res.send(401, global.unauthError)
+      res.status(401).send(global.unauthError)
     }
   } else {
-    res.send(401, global.unauthError)
+    res.status(401).send(global.unauthError)
   }
   mysql.select([], `SELECT * FROM users WHERE user_id = ${userId}`).then(item => {
     data.user_id = item[0].user_id

@@ -18,7 +18,7 @@ module.exports = function(req, res, next) {
     mysql.select([], `SELECT * FROM measuring_event WHERE id = ${_query.id}`).then(eventData => {
       data.event = eventData
       // 查询事件详情分页
-      mysql.select([], `SELECT * FROM measuring_point WHERE event_id = ${_query.id} ORDER BY id ASC LIMIT ${_query.per_page}`).then(item => {
+      mysql.select([], `SELECT * FROM measuring_point WHERE event_id = ${_query.id} ORDER BY id ASC LIMIT ${_query.per_page * (_query.page -1)}, ${_query.per_page}`).then(item => {
         data.detail = item
         res.send({data, pagination})
       })
