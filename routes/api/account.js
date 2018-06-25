@@ -9,10 +9,10 @@ module.exports = function(req, res, next) {
   let _query = req.query
   let index = 0
 
-  if (_query.user_id) {
+  if (_query.user_id) { // 刷新
     userId = _query.user_id
-  } else if (_query.token) {
-    global.token.forEach(item => {
+  } else if (_query.token) { // 登录
+    req.session.userData.forEach(item => {
       if (item.token === _query.token) {
         index ++
         userId = item.id
