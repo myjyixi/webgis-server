@@ -1,5 +1,3 @@
-var mysql = require('../../misc/mysql')
-
 module.exports = function(req, res, next) {
   let _query = req.query
   let author = req.headers.authorization
@@ -13,7 +11,6 @@ module.exports = function(req, res, next) {
       req.session.userData.forEach(item => {
         if (item.id === parseInt(_query.user_id) && item.token === _token) {
           index ++
-          // 不要进两次该判断，不然爆炸。。
           next()
         }
       })

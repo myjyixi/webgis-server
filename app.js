@@ -26,6 +26,7 @@ app.all('*', function(req, res, next) {
   }
 })
 
+// 设置session，用于存储登录信息
 app.use(cookieParser())
 app.use(session({
   secret: '12345',
@@ -48,9 +49,9 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', index)
-app.use('/users', users)
+
+// 配置前端请求api
 app.use('/api', api)
-// app.use('/api/login', require('./routes/api/login'))
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
